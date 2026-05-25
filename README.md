@@ -31,15 +31,6 @@ picanteria-don-felix-php/
 └── index.php
 ```
 
-## Cómo ejecutar en XAMPP
-
-1. Copia la carpeta `picanteria-don-felix-php` dentro de `htdocs`.
-2. Abre XAMPP y activa Apache.
-3. Ingresa en el navegador:
-
-```txt
-http://localhost/picanteria-don-felix-php/
-```
 
 ## Panel administrador
 
@@ -74,18 +65,6 @@ data/reservas.csv
 ```
 
 Si no se guardan, revisa que la carpeta `data` tenga permisos de escritura.
-
-## Funcionalidades
-
-- Landing page moderna para negocio gastronómico.
-- Carta referencial editable desde PHP.
-- Botón de WhatsApp.
-- Ubicación con imagen de mapa y botón a Google Maps.
-- Formulario de reservas con validaciones.
-- Almacenamiento básico en CSV.
-- Panel administrador para ver reservas.
-- Cambio de estado: Pendiente, Confirmada o Cancelada.
-- Diseño responsive para celular, tablet y escritorio.
 
 ## Descripción para GitHub
 
