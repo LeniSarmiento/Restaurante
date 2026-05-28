@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?= h($site['name']) ?> | Tradición arequipeña</title>
-    <meta name="description" content="<?= h($site['name']) ?>: tradición arequipeña, almuerzos y platos especiales en Arequipa.">
+    <title><?= h($site['name']) ?> | Tradición arequipeña en Arequipa</title>
+    <meta name="description" content="<?= h($site['name']) ?>: tradición arequipeña, carta completa, reservas y ubicación en Arequipa.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -14,8 +14,8 @@
 <body>
 <header class="site-header" id="top">
     <div class="container nav-wrap">
-        <a class="brand" href="index.php#inicio" aria-label="Ir al inicio">
-            <img src="assets/img/logo-don-felix.png" alt="Logo Picantería Don Félix">
+        <a class="brand brand-transparent" href="index.php#inicio" aria-label="Ir al inicio">
+            <img src="assets/img/logo-don-felix-transparente.png" alt="Logo Picantería Don Félix">
         </a>
 
         <button class="menu-toggle" type="button" aria-label="Abrir menú" data-menu-toggle>

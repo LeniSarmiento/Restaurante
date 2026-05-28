@@ -13,6 +13,63 @@ if (todayInput) {
     todayInput.min = new Date().toISOString().split('T')[0];
 }
 
+const slider = document.querySelector('[data-menu-slider]');
+const prevBtn = document.querySelector('[data-menu-prev]');
+const nextBtn = document.querySelector('[data-menu-next]');
+const thumbButtons = document.querySelectorAll('[data-menu-thumb]');
+const menuPages = document.querySelectorAll('[data-menu-page]');
+
+function getCurrentPageIndex() {
+    if (!slider || !menuPages.length) return 0;
+    const currentTop = slider.scrollTop;
+    let closestIndex = 0;
+    let closestDistance = Infinity;
+
+    menuPages.forEach((page, index) => {
+        const distance = Math.abs(page.offsetTop - slider.offsetTop - currentTop);
+        if (distance < closestDistance) {
+            closestDistance = distance;
+            closestIndex = index;
+        }
+    });
+
+    return closestIndex;
+}
+
+function scrollToPage(index) {
+    if (!slider || !menuPages.length) return;
+    const safeIndex = Math.max(0, Math.min(index, menuPages.length - 1));
+    const page = menuPages[safeIndex];
+    slider.scrollTo({ top: page.offsetTop - slider.offsetTop, behavior: 'smooth' });
+}
+
+function setActiveThumb() {
+    if (!slider || !thumbButtons.length) return;
+    const index = getCurrentPageIndex();
+    thumbButtons.forEach((btn, i) => btn.classList.toggle('active', i === index));
+}
+
+if (slider) {
+    setActiveThumb();
+
+    prevBtn?.addEventListener('click', () => {
+        scrollToPage(getCurrentPageIndex() - 1);
+    });
+
+    nextBtn?.addEventListener('click', () => {
+        scrollToPage(getCurrentPageIndex() + 1);
+    });
+
+    thumbButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const index = Number(btn.dataset.menuThumb || 0);
+            scrollToPage(index);
+        });
+    });
+
+    slider.addEventListener('scroll', () => window.requestAnimationFrame(setActiveThumb));
+}
+
 const revealElements = document.querySelectorAll('.reveal');
 const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {

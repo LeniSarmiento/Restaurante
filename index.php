@@ -2,16 +2,20 @@
 <?php require_once __DIR__ . '/includes/header.php'; ?>
 
 <main>
-    <section class="hero" id="inicio">
+    <section class="hero hero-restaurant" id="inicio">
         <div class="hero-bg"></div>
         <div class="container hero-grid">
             <div class="hero-content reveal">
                 <span class="eyebrow">Picantería arequipeña</span>
                 <h1><?= h($site['name']) ?></h1>
-                <p><?= h($site['tagline']) ?>.</p>
+                <p>
+                    Tradición, sabor y platos especiales en Arequipa. Revisa la carta completa,
+                    reserva tu mesa o escríbenos directamente por WhatsApp.
+                </p>
                 <div class="hero-actions">
-                    <a class="btn btn-primary" href="#reservas">Reservar mesa</a>
-                    <a class="btn btn-outline" href="<?= h(whatsapp_link($site)) ?>" target="_blank" rel="noopener">Consultar por WhatsApp</a>
+                    <a class="btn btn-primary" href="#carta">Ver carta</a>
+                    <a class="btn btn-outline" href="#reservas">Reservar mesa</a>
+                    <a class="btn btn-ghost" href="<?= h(whatsapp_link($site)) ?>" target="_blank" rel="noopener">WhatsApp</a>
                 </div>
                 <div class="hero-info">
                     <span><?= h($site['phone']) ?></span>
@@ -22,7 +26,7 @@
                 <img src="assets/img/fachada-don-felix.png" alt="Fachada de Picantería Don Félix">
                 <div class="hero-card-badge">
                     <strong>Arequipa</strong>
-                    <span>Almuerzos y especiales</span>
+                    <span>Almuerzos y platos especiales</span>
                 </div>
             </div>
         </div>
@@ -32,10 +36,11 @@
         <div class="container two-col">
             <div class="section-copy reveal">
                 <span class="eyebrow">Nuestra esencia</span>
-                <h2>Una página web para mostrar tradición, ubicación y reservas.</h2>
+                <h2>Sabor tradicional para compartir en familia.</h2>
                 <p>
-                    Este sitio está pensado para que la picantería tenga presencia digital clara: presentación del local,
-                    carta editable, botón de WhatsApp, mapa de ubicación y formulario de reservas conectado con PHP.
+                    Picantería Don Félix presenta una propuesta visual cálida y tradicional,
+                    inspirada en la identidad arequipeña, los colores de la marca y la experiencia
+                    de almorzar en una picantería local.
                 </p>
             </div>
             <div class="highlight-grid reveal delay-1">
@@ -52,10 +57,55 @@
     <section class="section menu-section" id="carta">
         <div class="container">
             <div class="section-title reveal">
-                <span class="eyebrow">Carta referencial</span>
-                <h2>Platos para destacar en la web</h2>
-                <p>Los precios y nombres se pueden editar fácilmente desde el archivo <strong>includes/data.php</strong>.</p>
+                <span class="eyebrow">Carta 2026</span>
+                <h2>Explora la carta Don Félix</h2>
+                <p>
+                    Visualiza la carta en un visor amplio dentro de la página. También puedes abrirla en Google Drive
+                    o descargar el PDF para verla completa.
+                </p>
+                <div class="menu-actions">
+                    <a class="btn btn-primary" href="<?= h($site['menu_drive_url']) ?>" target="_blank" rel="noopener">Abrir carta en Drive</a>
+                    <a class="btn btn-outline dark" href="<?= h($site['menu_pdf_url']) ?>" target="_blank" rel="noopener">Ver PDF local</a>
+                </div>
             </div>
+
+            <div class="menu-viewer drive-menu-viewer reveal" aria-label="Visor de carta desde Google Drive">
+                <div class="viewer-top drive-viewer-top">
+                    <div>
+                        <span class="eyebrow">Vista desde Google Drive</span>
+                        <h3>Carta completa Don Félix</h3>
+                        <p class="viewer-help">
+                            La carta se muestra desde Google Drive en un espacio más amplio para que se pueda leer mejor.
+                            Usa la barra del visor para bajar, cambiar de página o ampliar el documento sin hacer larga toda la página.
+                        </p>
+                    </div>
+                    <a class="btn btn-primary" href="<?= h($site['menu_drive_url']) ?>" target="_blank" rel="noopener">
+                        Abrir en Drive
+                    </a>
+                </div>
+
+                <div class="drive-document-frame">
+                    <iframe
+                        src="<?= h($site['menu_drive_preview_url']) ?>"
+                        title="Carta completa Picantería Don Félix"
+                        loading="lazy"
+                        allow="autoplay"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+
+                <div class="drive-viewer-note">
+                    <strong>Nota:</strong> si el visor no carga en algún navegador, usa el botón
+                    <a href="<?= h($site['menu_drive_url']) ?>" target="_blank" rel="noopener">Abrir en Drive</a>
+                    o revisa el PDF local.
+                </div>
+            </div>
+
+            <div class="section-title section-title-small reveal">
+                <span class="eyebrow">Platos destacados</span>
+                <h2>Opciones principales de la carta</h2>
+            </div>
+
             <div class="menu-grid">
                 <?php foreach ($menuItems as $item): ?>
                     <article class="menu-card reveal">
@@ -74,11 +124,11 @@
 
     <section class="section promo-band">
         <div class="container promo-content reveal">
-            <img src="assets/img/logo-don-felix.png" alt="Logo Don Félix">
+            <img src="assets/img/logo-don-felix-blanco.png" alt="Logo Don Félix">
             <div>
-                <span class="eyebrow">Hecho para portafolio</span>
-                <h2>PHP + diseño responsive + formulario funcional</h2>
-                <p>Una web distinta al proyecto SmartBusiness: más comercial, visual y orientada a un negocio real.</p>
+                <span class="eyebrow">Carta completa y reservas</span>
+                <h2>Tradición arequipeña en una web moderna.</h2>
+                <p>Logo sin fondo, carta deslizable, ubicación, WhatsApp y formulario de reserva conectado con PHP.</p>
             </div>
             <a class="btn btn-light" href="#ubicacion">Ver ubicación</a>
         </div>
@@ -88,10 +138,10 @@
         <div class="container reservation-grid">
             <div class="section-copy reveal">
                 <span class="eyebrow">Reservas</span>
-                <h2>Formulario de reserva con PHP</h2>
+                <h2>Reserva tu mesa en Don Félix</h2>
                 <p>
-                    El formulario guarda las reservas en <strong>data/reservas.csv</strong> y luego pueden revisarse desde
-                    el panel administrador.
+                    Completa el formulario con tus datos, fecha y hora. La reserva queda registrada
+                    y puede revisarse desde el panel administrador del proyecto.
                 </p>
                 <div class="contact-card">
                     <strong>También puedes reservar por WhatsApp</strong>
@@ -123,7 +173,7 @@
                     <label>Número de personas
                         <input type="number" name="personas" min="1" max="30" value="2" required>
                     </label>
-                    <label>Servicio o plato de interés
+                    <label>Plato o servicio de interés
                         <select name="servicio" required>
                             <option value="">Seleccionar</option>
                             <?php foreach ($menuItems as $item): ?>
@@ -176,7 +226,7 @@
         <div class="container">
             <div class="section-title reveal">
                 <span class="eyebrow">Galería</span>
-                <h2>Identidad visual del proyecto</h2>
+                <h2>Local, ubicación e identidad visual</h2>
             </div>
             <div class="gallery-grid">
                 <?php foreach ($gallery as $image): ?>
