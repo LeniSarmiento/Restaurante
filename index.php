@@ -60,7 +60,7 @@
                 <span class="eyebrow">Carta 2026</span>
                 <h2>Explora la carta Don Félix</h2>
                 <p>
-                    Visualiza la carta en un visor amplio dentro de la página. También puedes abrirla en Google Drive
+                    Visualiza la carta en un visor compacto y responsive dentro de la página. También puedes abrirla en Google Drive
                     o descargar el PDF para verla completa.
                 </p>
                 <div class="menu-actions">
@@ -75,7 +75,7 @@
                         <span class="eyebrow">Vista desde Google Drive</span>
                         <h3>Carta completa Don Félix</h3>
                         <p class="viewer-help">
-                            La carta se muestra desde Google Drive en un espacio más amplio para que se pueda leer mejor.
+                            La carta se muestra desde Google Drive en un visor ajustado para computadora, tablet y celular.
                             Usa la barra del visor para bajar, cambiar de página o ampliar el documento sin hacer larga toda la página.
                         </p>
                     </div>
