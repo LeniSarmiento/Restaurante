@@ -2,7 +2,7 @@
 <footer class="footer">
     <div class="container footer-grid">
         <div>
-            <img class="footer-logo transparent-footer-logo" src="assets/img/logo-don-felix-blanco.png" alt="Picantería Don Félix">
+            <img class="footer-logo transparent-footer-logo" src="assets/img/logo-don-felix-blanco-profesional.png" alt="Picantería Don Félix">
             <p><?= h($site['tagline']) ?></p>
         </div>
         <div>

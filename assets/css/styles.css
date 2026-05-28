@@ -909,3 +909,111 @@ td small { display: block; color: var(--gris); margin-top: 5px; }
         height: 390px;
     }
 }
+
+
+/* =========================
+   Mejora v6 - logos PNG transparentes con contraste profesional
+   ========================= */
+.brand-transparent {
+    display: inline-flex;
+    align-items: center;
+    line-height: 0;
+}
+
+.brand-transparent img {
+    width: clamp(160px, 16vw, 220px);
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 8px 14px rgba(99, 16, 20, .14));
+}
+
+.site-header .nav-wrap {
+    min-height: 72px;
+}
+
+.logo-on-dark,
+.promo-content img,
+.transparent-footer-logo,
+.footer-logo {
+    display: block;
+    width: min(250px, 100%);
+    height: auto;
+    background: transparent !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    object-fit: contain;
+    filter: drop-shadow(0 14px 22px rgba(0, 0, 0, .24));
+}
+
+.promo-band {
+    padding: 56px 0;
+    background:
+        radial-gradient(circle at 20% 40%, rgba(216, 161, 42, .16), transparent 28%),
+        linear-gradient(135deg, #8f151b 0%, #9f171f 52%, #761015 100%);
+}
+
+.promo-content {
+    grid-template-columns: minmax(220px, 280px) 1fr auto;
+    gap: 52px;
+    align-items: center;
+}
+
+.promo-content h2 {
+    max-width: 720px;
+    text-wrap: balance;
+}
+
+.promo-content p {
+    max-width: 780px;
+    line-height: 1.7;
+}
+
+.footer-logo {
+    width: 240px;
+    margin-bottom: 18px;
+}
+
+.login-card img {
+    width: min(260px, 85%);
+    filter: drop-shadow(0 12px 20px rgba(99,16,20,.12));
+}
+
+@media (max-width: 920px) {
+    .promo-content {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        text-align: center;
+        justify-items: center;
+    }
+
+    .promo-content img {
+        width: min(240px, 70vw);
+    }
+
+    .promo-content h2,
+    .promo-content p {
+        max-width: 680px;
+    }
+}
+
+@media (max-width: 520px) {
+    .site-header .nav-wrap {
+        min-height: 64px;
+    }
+
+    .brand-transparent img {
+        width: 158px;
+    }
+
+    .promo-band {
+        padding: 42px 0;
+    }
+
+    .promo-content img {
+        width: min(210px, 74vw);
+    }
+
+    .footer-logo {
+        width: 210px;
+    }
+}

@@ -124,7 +124,7 @@
 
     <section class="section promo-band">
         <div class="container promo-content reveal">
-            <img src="assets/img/logo-don-felix-blanco.png" alt="Logo Don Félix">
+            <img src="assets/img/logo-don-felix-blanco-profesional.png" alt="Logo Don Félix">
             <div>
                 <span class="eyebrow">Carta completa y reservas</span>
                 <h2>Tradición arequipeña en una web moderna.</h2>
