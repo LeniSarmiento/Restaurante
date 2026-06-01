@@ -56,7 +56,7 @@ $canceladas = count(array_filter($reservas, fn($r) => ($r['estado'] ?? '') === '
     <main class="admin-shell">
         <?php if (!$logged): ?>
             <section class="login-card">
-                <img src="assets/img/logo-don-felix-vino-profesional.png" alt="Logo Don Félix">
+                <img src="assets/img/logo-don-felix-vino-profesional.png" alt="Logo Don Felix">
                 <h1>Panel administrador</h1>
                 <p>Ingresa la clave para revisar las reservas registradas.</p>
                 <?php if ($error): ?><div class="alert error"><?= h($error) ?></div><?php endif; ?>
@@ -134,3 +134,4 @@ $canceladas = count(array_filter($reservas, fn($r) => ($r['estado'] ?? '') === '
     </main>
 </body>
 </html>
+

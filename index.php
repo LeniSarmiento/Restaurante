@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="hero-card reveal delay-1">
-                <img src="<?= h($site['hero_image']) ?>" alt="Fachada de Picantería Don Félix">
+                <img src="<?= h($site['hero_image']) ?>" alt="Fachada de Picantería Don Felix">
                 <div class="hero-card-badge">
                     <strong>Arequipa</strong>
                     <span>Nueva imagen, platos reales y sabor tradicional</span>
@@ -82,7 +82,7 @@
         <div class="container">
             <div class="section-title reveal">
                 <span class="eyebrow">Carta 2026</span>
-                <h2>Explora la carta Don Félix</h2>
+                <h2>Explora la carta Don Felix</h2>
                 <p>
                     Visualiza la carta en un visor compacto y responsive dentro de la página. También puedes abrirla en Google Drive
                     o descargar el PDF para verla completa.
@@ -97,7 +97,7 @@
                 <div class="viewer-top drive-viewer-top">
                     <div>
                         <span class="eyebrow">Vista desde Google Drive</span>
-                        <h3>Carta completa Don Félix</h3>
+                        <h3>Carta completa Don Felix</h3>
                         <p class="viewer-help">
                             La carta se muestra desde Google Drive en un visor ajustado para computadora, tablet y celular.
                             Usa la barra del visor para bajar, cambiar de página o ampliar el documento sin hacer larga toda la página.
@@ -111,7 +111,7 @@
                 <div class="drive-document-frame">
                     <iframe
                         src="<?= h($site['menu_drive_preview_url']) ?>"
-                        title="Carta completa Picantería Don Félix"
+                        title="Carta completa Picantería Don Felix"
                         loading="lazy"
                         allow="autoplay"
                         allowfullscreen>
@@ -148,7 +148,7 @@
 
     <section class="section promo-band">
         <div class="container promo-content reveal">
-            <img src="<?= h($site['promo_image']) ?>" alt="Chicha de guiñapo servida en Don Félix">
+            <img src="<?= h($site['promo_image']) ?>" alt="Chicha de guiñapo servida en Don Felix">
             <div>
                 <span class="eyebrow">Experiencia real</span>
                 <h2>Platos tradicionales, chicha de guiñapo y un local listo para recibirte.</h2>
@@ -162,14 +162,14 @@
         <div class="container reservation-grid">
             <div class="section-copy reveal">
                 <span class="eyebrow">Reservas</span>
-                <h2>Reserva tu mesa en Don Félix</h2>
+                <h2>Reserva tu mesa en Don Felix</h2>
                 <p>
                     Completa el formulario con tus datos, fecha y hora. La reserva queda registrada
                     y puede revisarse desde el panel administrador del proyecto.
                 </p>
                 <div class="contact-card">
                     <strong>También puedes reservar por WhatsApp</strong>
-                    <a href="<?= h(whatsapp_link($site, 'Hola, quiero reservar una mesa en Picantería Don Félix.')) ?>" target="_blank" rel="noopener">
+                    <a href="<?= h(whatsapp_link($site, 'Hola, quiero reservar una mesa en Picantería Don Felix.')) ?>" target="_blank" rel="noopener">
                         <?= h($site['phone']) ?>
                     </a>
                 </div>
@@ -228,7 +228,7 @@
     <section class="section location" id="ubicacion">
         <div class="container location-grid">
             <div class="map-card reveal">
-                <img src="<?= h($site['location_image']) ?>" alt="Fachada del nuevo local de Picantería Don Félix">
+                <img src="<?= h($site['location_image']) ?>" alt="Fachada del nuevo local de Picantería Don Felix">
             </div>
             <div class="section-copy reveal delay-1">
                 <span class="eyebrow">Nueva ubicación</span>
@@ -268,4 +268,5 @@
 </main>
 
 <?php require_once __DIR__ . '/includes/footer.php'; ?>
+
 

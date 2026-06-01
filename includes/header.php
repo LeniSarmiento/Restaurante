@@ -15,7 +15,7 @@
 <header class="site-header" id="top">
     <div class="container nav-wrap">
         <a class="brand brand-transparent" href="index.php#inicio" aria-label="Ir al inicio">
-            <img src="assets/img/logo-don-felix-vino-profesional.png" alt="Logo Picantería Don Félix">
+            <img src="assets/img/logo-don-felix-vino-profesional.png" alt="Logo Picantería Don Felix">
         </a>
 
         <button class="menu-toggle" type="button" aria-label="Abrir menú" data-menu-toggle>
@@ -30,3 +30,4 @@
         </nav>
     </div>
 </header>
+
