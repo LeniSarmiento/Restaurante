@@ -200,6 +200,58 @@ h1, h2 { font-family: 'Playfair Display', serif; }
 .menu-card-footer { margin-top: auto; display: flex; justify-content: space-between; align-items: center; gap: 15px; }
 .menu-card-footer strong { color: var(--vino); }
 .menu-card-footer a { color: var(--dorado); font-weight: 900; }
+.menu-grid-featured .menu-card {
+    min-height: auto;
+    padding: 14px;
+}
+.menu-image-card {
+    position: relative;
+    margin: 0;
+    border-radius: 20px;
+    overflow: hidden;
+}
+.menu-image-card img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    transition: transform .12s ease;
+}
+.menu-overlay {
+    position: absolute;
+    inset: 0;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 8px;
+    background: linear-gradient(to top, rgba(33, 27, 27, .92) 0%, rgba(33, 27, 27, .08) 72%);
+    color: #fff;
+    opacity: 0;
+    transition: opacity .1s linear;
+}
+.menu-overlay h3 {
+    color: #fff;
+    font-size: 1.28rem;
+}
+.menu-overlay p {
+    color: rgba(255, 255, 255, .92);
+    line-height: 1.5;
+    margin: 0;
+}
+.menu-image-card:hover .menu-overlay,
+.menu-image-card:focus-within .menu-overlay {
+    opacity: 1;
+}
+.menu-image-card:hover img {
+    transform: scale(1.06);
+}
+.menu-grid-featured .menu-card-footer {
+    margin-top: 12px;
+    justify-content: center;
+}
+.menu-grid-featured .menu-card-footer a {
+    color: var(--vino);
+}
 
 .promo-band { padding: 48px 0; background: var(--vino); color: white; }
 .promo-content { display: grid; grid-template-columns: 180px 1fr auto; align-items: center; gap: 30px; }

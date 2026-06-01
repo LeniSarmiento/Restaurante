@@ -130,15 +130,19 @@
                 <h2>Opciones principales de la carta</h2>
             </div>
 
-            <div class="menu-grid">
+            <div class="menu-grid menu-grid-featured">
                 <?php foreach ($menuItems as $item): ?>
                     <article class="menu-card reveal">
-                        <div class="tag"><?= h($item['tag']) ?></div>
-                        <h3><?= h($item['name']) ?></h3>
-                        <p><?= h($item['desc']) ?></p>
+                        <figure class="menu-image-card">
+                            <img src="<?= h($item['image']) ?>" alt="<?= h($item['alt']) ?>">
+                            <figcaption class="menu-overlay">
+                                <span class="tag"><?= h($item['tag']) ?></span>
+                                <h3><?= h($item['name']) ?></h3>
+                                <p><?= h($item['desc']) ?></p>
+                            </figcaption>
+                        </figure>
                         <div class="menu-card-footer">
-                            <strong><?= h($item['price']) ?></strong>
-                            <a href="#reservas">Reservar</a>
+                            <a href="#reservas">Reservar este plato</a>
                         </div>
                     </article>
                 <?php endforeach; ?>
