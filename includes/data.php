@@ -12,6 +12,10 @@ $site = [
     'menu_drive_preview_url' => 'https://drive.google.com/file/d/122plxbrF4ojh-bCIbZIgbChiK42TmdxD/preview',
     'menu_pdf_url' => 'assets/pdf/Carta_Don_Felix_2026.pdf',
     'admin_password' => 'donfelix2026', // Cambiar antes de publicar el proyecto en internet.
+    'hero_image' => 'assets/img/banco-drive/hero-fachada.jpg',
+    'feature_dish_image' => 'assets/img/banco-drive/plato-adobo.jpg',
+    'promo_image' => 'assets/img/banco-drive/bebida-chicha.jpg',
+    'location_image' => 'assets/img/banco-drive/hero-fachada.jpg',
 ];
 
 $navItems = [
@@ -23,18 +27,39 @@ $navItems = [
 ];
 
 $highlights = [
-    ['title' => 'Tradición arequipeña', 'text' => 'Recetas representativas de Arequipa con presentación familiar y sabor de casa.'],
-    ['title' => 'Carta completa', 'text' => 'El cliente puede revisar entradas, caldos, picantes, especiales, porciones y bebidas desde la misma web.'],
-    ['title' => 'Reserva rápida', 'text' => 'Formulario conectado con PHP y botón directo a WhatsApp para confirmar pedidos o mesas.'],
+    ['title' => 'Domingos de adobo', 'text' => 'Adobo con panes, te y copita de anis para mantener la costumbre arequipena.'],
+    ['title' => 'Piqueos para compartir', 'text' => 'Platos generosos para mesas familiares, reuniones y almuerzos con sabor casero.'],
+    ['title' => 'Chicha de guinapo', 'text' => 'Bebida emblematica servida en jarra de barro para acompanar los platos de la casa.'],
 ];
 
 $menuItems = [
-    ['name' => 'Rocoto relleno con pastel de papas', 'desc' => 'Clásico arequipeño servido con una de las preparaciones más tradicionales de la casa.', 'price' => 'S/ 26.00', 'tag' => 'Entrada'],
-    ['name' => 'Adobo de cogote de chancho', 'desc' => 'Preparado con chicha, té, panes, rocoto hervido y copita de anís. Disponible los domingos.', 'price' => 'S/ 24.00', 'tag' => 'Domingos'],
-    ['name' => 'Piqueo Don Félix', 'desc' => 'Malaya dorada, costillar, chicharrones, torrejitas, sarza, papas y jarra de chicha.', 'price' => 'S/ 135.00', 'tag' => 'Para compartir'],
-    ['name' => 'Súper americano', 'desc' => 'Rocoto relleno, pastel, estofado, locro, torrejitas, arroz, sarza y chicharrón.', 'price' => 'S/ 71.00', 'tag' => 'Arequipeño'],
-    ['name' => 'Cuy chactado', 'desc' => 'Acompañado con papas doradas, mote de maíz o pastel de papas con sarza criolla.', 'price' => 'S/ 62.00', 'tag' => 'Especial'],
-    ['name' => 'Chupe de camarones', 'desc' => 'Caldo concentrado con camarones, zapallo, habas, repollo, papas, choclo, queso y huevo.', 'price' => 'S/ 70.00', 'tag' => 'Camarones'],
+    ['name' => 'Adobo de cogote de chancho', 'desc' => 'Preparado con chicha, te, panes, rocoto hervido y copita de anis. Disponible los domingos.', 'price' => 'S/ 24.00', 'tag' => 'Domingos'],
+    ['name' => 'Piqueo Don Felix', 'desc' => 'Malaya dorada, costillar, chicharrones, torrejitas, sarza, papas y jarra de chicha.', 'price' => 'S/ 135.00', 'tag' => 'Para compartir'],
+    ['name' => 'Chicharron crocante', 'desc' => 'Porcion acompanada con papas, mote y sarza criolla en el estilo tradicional de la casa.', 'price' => 'S/ 32.00', 'tag' => 'Favorito'],
+    ['name' => 'Chairo arequipeno', 'desc' => 'Caldo tradicional con sabor intenso, ideal para el almuerzo del dia.', 'price' => 'S/ 22.00', 'tag' => 'Caldos'],
+    ['name' => 'Chaque de tripas', 'desc' => 'Preparacion casera con identidad arequipena, servida en formato abundante.', 'price' => 'S/ 22.00', 'tag' => 'Tradicion'],
+    ['name' => 'Chicha de guinapo', 'desc' => 'Bebida emblema de la picanteria, servida fresca para acompanar platos y piqueos.', 'price' => 'S/ 8.00', 'tag' => 'Bebidas'],
+];
+
+$dishShowcase = [
+    [
+        'title' => 'Adobo dominguero',
+        'text' => 'Uno de los platos mas representativos de la casa, servido con panes y acompanado de la experiencia tradicional arequipena.',
+        'image' => 'assets/img/banco-drive/plato-adobo.jpg',
+        'alt' => 'Adobo servido en Picanteria Don Felix',
+    ],
+    [
+        'title' => 'Piqueo de la casa',
+        'text' => 'Una propuesta abundante para compartir con chicharron, torrejitas y acompanamientos sobre mantel tradicional.',
+        'image' => 'assets/img/banco-drive/plato-piqueo.jpg',
+        'alt' => 'Piqueo Don Felix servido sobre mantel a cuadros',
+    ],
+    [
+        'title' => 'Chicha de guinapo',
+        'text' => 'Servida en barro y vaso alto, refuerza la identidad de la picanteria y acompana los platos especiales.',
+        'image' => 'assets/img/banco-drive/bebida-chicha.jpg',
+        'alt' => 'Chicha de guinapo servida en Picanteria Don Felix',
+    ],
 ];
 
 $menuPages = [
@@ -49,9 +74,10 @@ $menuPages = [
 ];
 
 $gallery = [
-    ['src' => 'assets/img/fachada-don-felix.png', 'alt' => 'Fachada de Picantería Don Félix'],
-    ['src' => 'assets/img/mapa-don-felix.png', 'alt' => 'Mapa de ubicación de Picantería Don Félix'],
-    ['src' => 'assets/img/moodboard-don-felix.png', 'alt' => 'Moodboard de marca de Picantería Don Félix'],
+    ['src' => 'assets/img/banco-drive/hero-fachada.jpg', 'alt' => 'Fachada real de Picanteria Don Felix'],
+    ['src' => 'assets/img/banco-drive/plato-piqueo.jpg', 'alt' => 'Piqueo Don Felix servido en mesa'],
+    ['src' => 'assets/img/banco-drive/plato-chicharron.jpg', 'alt' => 'Chicharron servido en Picanteria Don Felix'],
+    ['src' => 'assets/img/banco-drive/plato-adobo.jpg', 'alt' => 'Adobo de la casa en Picanteria Don Felix'],
 ];
 
 function h($value) {

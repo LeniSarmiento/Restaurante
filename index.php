@@ -23,10 +23,10 @@
                 </div>
             </div>
             <div class="hero-card reveal delay-1">
-                <img src="assets/img/fachada-don-felix.png" alt="Fachada de Picantería Don Félix">
+                <img src="<?= h($site['hero_image']) ?>" alt="Fachada de Picantería Don Félix">
                 <div class="hero-card-badge">
                     <strong>Arequipa</strong>
-                    <span>Almuerzos y platos especiales</span>
+                    <span>Nueva imagen, platos reales y sabor tradicional</span>
                 </div>
             </div>
         </div>
@@ -36,11 +36,11 @@
         <div class="container two-col">
             <div class="section-copy reveal">
                 <span class="eyebrow">Nuestra esencia</span>
-                <h2>Sabor tradicional para compartir en familia.</h2>
+                <h2>Una picanteria con platos reales, servicio cercano y sabor de barrio.</h2>
                 <p>
-                    Picantería Don Félix presenta una propuesta visual cálida y tradicional,
-                    inspirada en la identidad arequipeña, los colores de la marca y la experiencia
-                    de almorzar en una picantería local.
+                    Don Felix combina recetas arequipenas, porciones generosas y una presentacion
+                    que conserva el espiritu de la picanteria tradicional. Esta version de la web
+                    muestra platos y escenas reales del local para transmitir mejor la experiencia.
                 </p>
             </div>
             <div class="highlight-grid reveal delay-1">
@@ -48,6 +48,30 @@
                     <article class="highlight-card">
                         <h3><?= h($item['title']) ?></h3>
                         <p><?= h($item['text']) ?></p>
+                    </article>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </section>
+
+    <section class="section showcase-section">
+        <div class="container">
+            <div class="section-title reveal">
+                <span class="eyebrow">Especialidades</span>
+                <h2>Platos y bebidas con identidad Don Felix</h2>
+                <p>
+                    Seleccionamos imagenes reales del restaurante para destacar especialidades,
+                    piqueos y bebidas que refuerzan la identidad de la casa.
+                </p>
+            </div>
+            <div class="showcase-grid">
+                <?php foreach ($dishShowcase as $item): ?>
+                    <article class="showcase-card reveal">
+                        <img src="<?= h($item['image']) ?>" alt="<?= h($item['alt']) ?>">
+                        <div class="showcase-copy">
+                            <h3><?= h($item['title']) ?></h3>
+                            <p><?= h($item['text']) ?></p>
+                        </div>
                     </article>
                 <?php endforeach; ?>
             </div>
@@ -124,11 +148,11 @@
 
     <section class="section promo-band">
         <div class="container promo-content reveal">
-            <img src="assets/img/logo-don-felix-blanco-profesional.png" alt="Logo Don Félix">
+            <img src="<?= h($site['promo_image']) ?>" alt="Chicha de guiñapo servida en Don Félix">
             <div>
-                <span class="eyebrow">Carta completa y reservas</span>
-                <h2>Tradición arequipeña en una web moderna.</h2>
-                <p>Logo sin fondo, carta deslizable, ubicación, WhatsApp y formulario de reserva conectado con PHP.</p>
+                <span class="eyebrow">Experiencia real</span>
+                <h2>Platos tradicionales, chicha de guiñapo y un local listo para recibirte.</h2>
+                <p>La web ahora se apoya en fotos reales del restaurante para mostrar mejor el ambiente y las especialidades de la casa.</p>
             </div>
             <a class="btn btn-light" href="#ubicacion">Ver ubicación</a>
         </div>
@@ -204,12 +228,16 @@
     <section class="section location" id="ubicacion">
         <div class="container location-grid">
             <div class="map-card reveal">
-                <img src="assets/img/mapa-don-felix.png" alt="Mapa de ubicación de Picantería Don Félix">
+                <img src="<?= h($site['location_image']) ?>" alt="Fachada del nuevo local de Picantería Don Félix">
             </div>
             <div class="section-copy reveal delay-1">
                 <span class="eyebrow">Nueva ubicación</span>
                 <h2>Visítanos en Arequipa</h2>
                 <p><?= h($site['address']) ?></p>
+                <p>
+                    El nuevo local mantiene una atmosfera calida y familiar, ideal para almuerzos,
+                    reuniones y domingos de picanteria.
+                </p>
                 <div class="location-actions">
                     <a class="btn btn-primary" href="<?= h($site['maps_url']) ?>" target="_blank" rel="noopener">Abrir en Google Maps</a>
                     <a class="btn btn-outline dark" href="tel:<?= h(str_replace(' ', '', $site['phone'])) ?>">Llamar ahora</a>
@@ -226,7 +254,7 @@
         <div class="container">
             <div class="section-title reveal">
                 <span class="eyebrow">Galería</span>
-                <h2>Local, ubicación e identidad visual</h2>
+                <h2>Platos reales y escenas del restaurante</h2>
             </div>
             <div class="gallery-grid">
                 <?php foreach ($gallery as $image): ?>
@@ -240,3 +268,4 @@
 </main>
 
 <?php require_once __DIR__ . '/includes/footer.php'; ?>
+
