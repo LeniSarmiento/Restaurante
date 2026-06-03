@@ -10,7 +10,6 @@ $site = [
     'menu_drive_url' => 'https://drive.google.com/file/d/122plxbrF4ojh-bCIbZIgbChiK42TmdxD/view',
     'menu_drive_preview_url' => 'https://drive.google.com/file/d/122plxbrF4ojh-bCIbZIgbChiK42TmdxD/preview',
     'menu_pdf_url' => 'assets/pdf/Carta_Don_Felix_2026.pdf',
-    'admin_password' => 'donfelix2026',
     'hero_image' => 'assets/img/banco-drive/hero-fachada.jpg',
     'feature_dish_image' => 'assets/img/banco-drive/plato-adobo.jpg',
     'promo_image' => 'assets/img/banco-drive/bebida-chicha.jpg',
@@ -78,6 +77,85 @@ $gallery = [
     ['src' => 'assets/img/banco-drive/plato-chicharron.jpg', 'alt' => 'Chicharron servido en Picanteria Don Felix'],
     ['src' => 'assets/img/banco-drive/plato-adobo.jpg', 'alt' => 'Adobo de la casa en Picanteria Don Felix'],
 ];
+
+function data_path($file) {
+    return __DIR__ . '/../data/' . $file;
+}
+
+function read_json_file($path, $fallback = []) {
+    if (!is_file($path)) {
+        return $fallback;
+    }
+
+    $json = file_get_contents($path);
+    $data = json_decode($json, true);
+
+    return is_array($data) ? $data : $fallback;
+}
+
+function write_json_file($path, $data) {
+    $json = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    return file_put_contents($path, $json . PHP_EOL, LOCK_EX) !== false;
+}
+
+function read_content_config() {
+    return read_json_file(data_path('content.json'), []);
+}
+
+function save_content_config($content) {
+    return write_json_file(data_path('content.json'), $content);
+}
+
+function default_admin_users() {
+    return [
+        [
+            'username' => 'admin',
+            'name' => 'Administrador',
+            'role' => 'admin',
+            'active' => true,
+            'password_hash' => '$2y$10$dH/D4wRVz4c9B6J7G.moFeievf42fhGNP7sFIIkGCh2q0/pd4xvJy',
+        ],
+    ];
+}
+
+function read_admin_users() {
+    return read_json_file(data_path('admin_users.json'), default_admin_users());
+}
+
+function save_admin_users($users) {
+    return write_json_file(data_path('admin_users.json'), array_values($users));
+}
+
+function ensure_admin_users() {
+    $path = data_path('admin_users.json');
+    if (!is_file($path)) {
+        save_admin_users(default_admin_users());
+    }
+
+    return read_admin_users();
+}
+
+function apply_content_config($config) {
+    global $site, $dishShowcase, $menuItems, $gallery;
+
+    if (!empty($config['site']) && is_array($config['site'])) {
+        $site = array_replace($site, $config['site']);
+    }
+
+    if (!empty($config['dishShowcase']) && is_array($config['dishShowcase'])) {
+        $dishShowcase = array_values($config['dishShowcase']);
+    }
+
+    if (!empty($config['menuItems']) && is_array($config['menuItems'])) {
+        $menuItems = array_values($config['menuItems']);
+    }
+
+    if (!empty($site['location_image'])) {
+        $gallery[0]['src'] = $site['location_image'];
+    }
+}
+
+apply_content_config(read_content_config());
 
 function h($value) {
     return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8');

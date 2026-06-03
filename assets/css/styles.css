@@ -351,6 +351,78 @@ th { background: #fff4e5; color: var(--vino-oscuro); font-size: .88rem; text-tra
 td small { display: block; color: var(--gris); margin-top: 5px; }
 .empty { text-align: center; color: var(--gris); padding: 34px; }
 .status-form select { min-width: 135px; }
+.admin-top small { display: block; margin-top: 8px; color: var(--gris); font-weight: 800; }
+.admin-section {
+    margin-top: 30px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(143,21,27,.1);
+}
+.admin-section:first-of-type {
+    border-top: 0;
+    padding-top: 0;
+}
+.admin-section-title {
+    margin-bottom: 22px;
+}
+.admin-section-title h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--vino-oscuro);
+    font-size: clamp(1.8rem, 3vw, 2.55rem);
+    margin-top: 6px;
+}
+.admin-section-title p,
+.admin-editor-card p,
+.admin-user-card p {
+    color: var(--gris);
+    line-height: 1.6;
+}
+.admin-section-title.compact {
+    margin-top: 32px;
+}
+.admin-editor-grid,
+.admin-users-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+.admin-editor-card,
+.admin-user-card {
+    background: white;
+    border: 1px solid rgba(143,21,27,.1);
+    border-radius: 24px;
+    padding: 18px;
+    box-shadow: 0 16px 38px rgba(143,21,27,.07);
+}
+.admin-editor-card-wide {
+    grid-column: span 1;
+}
+.admin-editor-card h3,
+.admin-user-card h3 {
+    color: var(--vino);
+    font-size: 1.15rem;
+    margin-bottom: 14px;
+}
+.admin-editor-card img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 16px;
+    border: 1px solid rgba(143,21,27,.1);
+    margin-bottom: 14px;
+}
+.admin-edit-form input[type="file"] {
+    padding: 12px;
+    background: #fff8ef;
+}
+.admin-user-card {
+    display: grid;
+    gap: 12px;
+    align-content: start;
+}
+.admin-user-card form {
+    display: grid;
+    gap: 10px;
+}
 
 @media (max-width: 920px) {
     .menu-toggle { display: block; }
@@ -369,7 +441,7 @@ td small { display: block; color: var(--gris); margin-top: 5px; }
     }
     .main-nav.open { display: flex; }
     .hero-grid, .two-col, .reservation-grid, .location-grid, .promo-content { grid-template-columns: 1fr; }
-    .highlight-grid, .menu-grid, .gallery-grid, .footer-grid, .stats-grid, .showcase-grid { grid-template-columns: 1fr; }
+    .highlight-grid, .menu-grid, .gallery-grid, .footer-grid, .stats-grid, .showcase-grid, .admin-editor-grid, .admin-users-grid { grid-template-columns: 1fr; }
     .promo-content { text-align: center; justify-items: center; }
     .form-row, .mini-info { grid-template-columns: 1fr; }
     .hero-card img { min-height: 280px; }
@@ -1033,12 +1105,28 @@ td small { display: block; color: var(--gris); margin-top: 5px; }
     background:
         radial-gradient(circle at 20% 40%, rgba(216, 161, 42, .16), transparent 28%),
         linear-gradient(135deg, #8f151b 0%, #9f171f 52%, #761015 100%);
+    overflow: hidden;
 }
 
 .promo-content {
-    grid-template-columns: minmax(220px, 280px) 1fr auto;
-    gap: 52px;
+    width: 100%;
+    margin: 0;
+    padding-right: max(32px, calc((100vw - 1180px) / 2));
+    grid-template-columns: clamp(280px, 32vw, 430px) minmax(0, 720px) auto;
+    gap: clamp(28px, 4vw, 56px);
     align-items: center;
+}
+
+.promo-content img {
+    width: 100%;
+    max-width: none;
+    height: clamp(260px, 28vw, 360px);
+    object-fit: cover;
+    object-position: center;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    filter: none !important;
 }
 
 .promo-content h2 {
@@ -1064,18 +1152,25 @@ td small { display: block; color: var(--gris); margin-top: 5px; }
 @media (max-width: 920px) {
     .promo-content {
         grid-template-columns: 1fr;
-        gap: 24px;
+        gap: 26px;
+        padding-right: 0;
         text-align: center;
         justify-items: center;
     }
 
     .promo-content img {
-        width: min(240px, 70vw);
+        width: 100%;
+        height: clamp(240px, 42vw, 330px);
     }
 
     .promo-content h2,
     .promo-content p {
         max-width: 680px;
+    }
+
+    .promo-content > div,
+    .promo-content > .btn {
+        margin-inline: 24px;
     }
 }
 
@@ -1089,11 +1184,16 @@ td small { display: block; color: var(--gris); margin-top: 5px; }
     }
 
     .promo-band {
-        padding: 42px 0;
+        padding: 0 0 42px;
     }
 
     .promo-content img {
-        width: min(210px, 74vw);
+        height: 230px;
+    }
+
+    .promo-content > div,
+    .promo-content > .btn {
+        margin-inline: 16px;
     }
 
     .footer-logo {
