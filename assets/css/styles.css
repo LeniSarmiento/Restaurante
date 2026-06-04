@@ -323,6 +323,16 @@ input:focus, select:focus, textarea:focus { border-color: var(--dorado); box-sha
 .footer-logo { width: 210px; background: white; padding: 8px; border-radius: 14px; margin-bottom: 16px; }
 .footer p { color: rgba(255,255,255,.72); line-height: 1.7; }
 .footer a { display: block; color: var(--dorado); font-weight: 900; margin-bottom: 10px; }
+.footer-admin-link {
+    margin-top: 18px;
+    color: rgba(255,255,255,.56) !important;
+    font-size: .88rem;
+    font-weight: 700 !important;
+    letter-spacing: .02em;
+}
+.footer-admin-link:hover {
+    color: rgba(255,255,255,.86) !important;
+}
 .footer-bottom { border-top: 1px solid rgba(255,255,255,.1); margin-top: 36px; padding: 18px; text-align: center; }
 .floating-whatsapp {
     position: fixed;

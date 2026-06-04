@@ -10,6 +10,12 @@ $site = [
     'menu_drive_url' => 'https://drive.google.com/file/d/122plxbrF4ojh-bCIbZIgbChiK42TmdxD/view',
     'menu_drive_preview_url' => 'https://drive.google.com/file/d/122plxbrF4ojh-bCIbZIgbChiK42TmdxD/preview',
     'menu_pdf_url' => 'assets/pdf/Carta_Don_Felix_2026.pdf',
+    'meta_title' => 'Picanteria Don Felix | Tradicion arequipena en Arequipa',
+    'meta_description' => 'Picanteria Don Felix: tradicion arequipena, carta completa, reservas y ubicacion en Arequipa.',
+    'meta_image' => 'assets/img/banco-drive/hero-fachada.jpg',
+    'favicon' => 'assets/img/logo-don-felix.png',
+    'mailer_from_email' => 'no-reply@donfelix.local',
+    'mailer_from_name' => 'Don Felix',
     'hero_image' => 'assets/img/banco-drive/hero-fachada.jpg',
     'feature_dish_image' => 'assets/img/banco-drive/plato-adobo.jpg',
     'promo_image' => 'assets/img/banco-drive/bebida-chicha.jpg',
@@ -37,6 +43,21 @@ $menuItems = [
     ['name' => 'Super americano', 'desc' => 'Version completa del americano, con mayor variedad en el plato y presentacion tipica de la casa.', 'tag' => 'Favorito', 'image' => 'assets/img/carta-especiales/super-americano.jpg', 'alt' => 'Plato Super americano de Don Felix'],
     ['name' => 'Locro de pecho', 'desc' => 'Guiso tradicional arequipeno de pecho de res, cocido lentamente con zapallo, papa, hierbas y ajies para lograr un sabor profundo y casero.', 'tag' => 'Tradicion', 'image' => 'assets/img/carta-especiales/locro-de-pecho.jpg', 'alt' => 'Plato Locro de pecho de Don Felix'],
     ['name' => 'Estofado de res', 'desc' => 'Preparado con insumos del local y concho hecho en casa, logrando un estofado de sabor intenso, textura casera y sazon tradicional.', 'tag' => 'De la casa', 'image' => 'assets/img/carta-especiales/estofado-de-res.jpg', 'alt' => 'Plato Estofado de res de Don Felix'],
+];
+
+$reservationServices = [
+    'Americano especial',
+    'Doble arequipeno',
+    'Triple arequipeno',
+    'Super americano',
+    'Locro de pecho',
+    'Estofado de res',
+    'Adobo de domingo',
+    'Piqueo Don Felix',
+    'Chicharron',
+    'Chicha de guinapo',
+    'Mesa familiar',
+    'Consulta general',
 ];
 
 $dishShowcase = [
@@ -111,6 +132,11 @@ function default_admin_users() {
         [
             'username' => 'admin',
             'name' => 'Administrador',
+            'email' => 'admin@donfelix.local',
+            'email_verified' => true,
+            'email_verified_at' => date('c'),
+            'verification_token_hash' => '',
+            'verification_sent_at' => '',
             'role' => 'admin',
             'active' => true,
             'password_hash' => '$2y$10$dH/D4wRVz4c9B6J7G.moFeievf42fhGNP7sFIIkGCh2q0/pd4xvJy',
@@ -118,12 +144,45 @@ function default_admin_users() {
     ];
 }
 
+function normalize_admin_users($users) {
+    $normalized = [];
+
+    foreach ((array) $users as $user) {
+        if (!is_array($user)) {
+            continue;
+        }
+
+        $entry = array_replace([
+            'username' => '',
+            'name' => '',
+            'email' => '',
+            'email_verified' => false,
+            'email_verified_at' => '',
+            'verification_token_hash' => '',
+            'verification_sent_at' => '',
+            'role' => 'admin',
+            'active' => true,
+            'password_hash' => '',
+        ], $user);
+
+        if (($entry['username'] ?? '') === 'admin' && empty($entry['email'])) {
+            $entry['email'] = 'admin@donfelix.local';
+            $entry['email_verified'] = true;
+            $entry['email_verified_at'] = $entry['email_verified_at'] ?: date('c');
+        }
+
+        $normalized[] = $entry;
+    }
+
+    return $normalized ?: default_admin_users();
+}
+
 function read_admin_users() {
-    return read_json_file(data_path('admin_users.json'), default_admin_users());
+    return normalize_admin_users(read_json_file(data_path('admin_users.json'), default_admin_users()));
 }
 
 function save_admin_users($users) {
-    return write_json_file(data_path('admin_users.json'), array_values($users));
+    return write_json_file(data_path('admin_users.json'), array_values(normalize_admin_users($users)));
 }
 
 function ensure_admin_users() {

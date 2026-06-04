@@ -134,7 +134,7 @@
                 <?php foreach ($menuItems as $item): ?>
                     <article class="menu-card reveal">
                         <figure class="menu-image-card">
-                            <img src="<?= h($item['image']) ?>" alt="<?= h($item['alt']) ?>">
+                            <img src="<?= h($item['image']) ?>" alt="<?= h($item['alt']) ?>" loading="lazy">
                             <figcaption class="menu-overlay">
                                 <p><?= h($item['desc']) ?></p>
                             </figcaption>
@@ -206,8 +206,8 @@
                     <label>Plato o servicio de interés
                         <select name="servicio" required>
                             <option value="">Seleccionar</option>
-                            <?php foreach ($menuItems as $item): ?>
-                                <option value="<?= h($item['name']) ?>"><?= h($item['name']) ?></option>
+                            <?php foreach ($reservationServices as $service): ?>
+                                <option value="<?= h($service) ?>"><?= h($service) ?></option>
                             <?php endforeach; ?>
                         </select>
                     </label>
@@ -234,7 +234,7 @@
     <section class="section location" id="ubicacion">
         <div class="container location-grid">
             <div class="map-card reveal">
-                <img src="<?= h($site['location_image']) ?>" alt="Fachada del nuevo local de Picantería Don Felix">
+                <img src="<?= h($site['location_image']) ?>" alt="Fachada del nuevo local de Picanteria Don Felix" loading="lazy">
             </div>
             <div class="section-copy reveal delay-1">
                 <span class="eyebrow">Nueva ubicación</span>
@@ -265,7 +265,7 @@
             <div class="gallery-grid">
                 <?php foreach ($gallery as $image): ?>
                     <figure class="gallery-item reveal">
-                        <img src="<?= h($image['src']) ?>" alt="<?= h($image['alt']) ?>">
+                        <img src="<?= h($image['src']) ?>" alt="<?= h($image['alt']) ?>" loading="lazy">
                     </figure>
                 <?php endforeach; ?>
             </div>

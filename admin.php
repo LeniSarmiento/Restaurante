@@ -40,9 +40,56 @@ function admin_find_user($users, $username) {
     return null;
 }
 
+function admin_find_user_by_email($users, $email) {
+    foreach ($users as $user) {
+        if (strcasecmp((string) ($user['email'] ?? ''), (string) $email) === 0) {
+            return $user;
+        }
+    }
+
+    return null;
+}
+
 function admin_clean_text($value, $max = 500) {
     $value = trim((string) $value);
     return mb_substr($value, 0, $max);
+}
+
+function admin_base_url() {
+    $https = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off';
+    $scheme = $https ? 'https' : 'http';
+    $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+    $scriptDir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '/'));
+    $scriptDir = rtrim($scriptDir, '/');
+
+    return $scheme . '://' . $host . ($scriptDir === '' ? '' : $scriptDir);
+}
+
+function admin_verification_link($username, $token) {
+    return admin_base_url() . '/admin.php?verify_user=' . rawurlencode($username) . '&verify_token=' . rawurlencode($token);
+}
+
+function admin_send_verification_email($site, $user, $token) {
+    $to = trim((string) ($user['email'] ?? ''));
+    if (!$to || !filter_var($to, FILTER_VALIDATE_EMAIL)) {
+        return false;
+    }
+
+    $subject = 'Confirma tu correo para ingresar al panel de Don Felix';
+    $link = admin_verification_link((string) ($user['username'] ?? ''), $token);
+    $message = "Hola " . ((string) ($user['name'] ?? $user['username'] ?? '')) . ",\n\n";
+    $message .= "Confirma tu correo para activar tu acceso al panel de administracion de Don Felix.\n\n";
+    $message .= "Enlace de confirmacion:\n" . $link . "\n\n";
+    $message .= "Sin esta confirmacion no podras iniciar sesion.\n";
+
+    $fromEmail = trim((string) ($site['mailer_from_email'] ?? 'no-reply@donfelix.local'));
+    $fromName = trim((string) ($site['mailer_from_name'] ?? 'Don Felix'));
+    $headers = [];
+    $headers[] = 'MIME-Version: 1.0';
+    $headers[] = 'Content-Type: text/plain; charset=UTF-8';
+    $headers[] = 'From: ' . $fromName . ' <' . $fromEmail . '>';
+
+    return @mail($to, $subject, $message, implode("\r\n", $headers));
 }
 
 function admin_upload_image($field, $prefix, $current) {
@@ -135,20 +182,70 @@ if (isset($_GET['logout'])) {
     exit;
 }
 
+if (isset($_GET['verify_user'], $_GET['verify_token'])) {
+    $verifyUsername = admin_clean_text($_GET['verify_user'] ?? '', 60);
+    $verifyToken = trim((string) ($_GET['verify_token'] ?? ''));
+    $verifyHash = hash('sha256', $verifyToken);
+    $verified = false;
+
+    foreach ($users as &$verifyUser) {
+        if (($verifyUser['username'] ?? '') !== $verifyUsername) {
+            continue;
+        }
+
+        if (!empty($verifyUser['email_verified'])) {
+            $success = 'Correo ya confirmado. Ya puedes ingresar al panel.';
+        } elseif ($verifyToken && hash_equals((string) ($verifyUser['verification_token_hash'] ?? ''), $verifyHash)) {
+            $verifyUser['email_verified'] = true;
+            $verifyUser['email_verified_at'] = date('c');
+            $verifyUser['verification_token_hash'] = '';
+            save_admin_users($users);
+            $success = 'Correo confirmado correctamente. Ya puedes ingresar al panel.';
+            $verified = true;
+        } else {
+            $error = 'El enlace de verificacion no es valido o ya vencio.';
+        }
+
+        break;
+    }
+    unset($verifyUser);
+
+    if ($verified) {
+        $users = ensure_admin_users();
+    }
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'login') {
     $username = admin_clean_text($_POST['username'] ?? '', 60);
     $password = (string) ($_POST['password'] ?? '');
     $user = admin_find_user($users, $username);
 
     if ($user && !empty($user['active']) && password_verify($password, $user['password_hash'] ?? '')) {
+        if (empty($user['email_verified'])) {
+            $error = 'Debes confirmar tu correo antes de ingresar al panel.';
+        } else {
+        if (password_needs_rehash($user['password_hash'] ?? '', PASSWORD_DEFAULT)) {
+            foreach ($users as &$storedUser) {
+                if (($storedUser['username'] ?? '') === ($user['username'] ?? '')) {
+                    $storedUser['password_hash'] = password_hash($password, PASSWORD_DEFAULT);
+                    break;
+                }
+            }
+            unset($storedUser);
+            save_admin_users($users);
+        }
+
         $_SESSION['admin_logged'] = true;
         $_SESSION['admin_user'] = $user['username'];
         admin_csrf_token();
         header('Location: admin.php');
         exit;
+        }
     }
 
-    $error = 'Usuario o clave incorrectos.';
+    if (!$error) {
+        $error = 'Usuario o clave incorrectos.';
+    }
 }
 
 $logged = !empty($_SESSION['admin_logged']) && admin_current_user($users);
@@ -176,22 +273,33 @@ if ($logged && $_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '')
     } elseif (($_POST['action'] ?? '') === 'add_user') {
         $username = strtolower(preg_replace('/[^a-z0-9_.-]+/', '', admin_clean_text($_POST['new_username'] ?? '', 40)));
         $name = admin_clean_text($_POST['new_name'] ?? '', 80);
+        $email = strtolower(admin_clean_text($_POST['new_email'] ?? '', 160));
         $password = (string) ($_POST['new_password'] ?? '');
 
-        if (!$username || strlen($password) < 8) {
-            $error = 'El usuario es obligatorio y la clave debe tener minimo 8 caracteres.';
+        if (!$username || !filter_var($email, FILTER_VALIDATE_EMAIL) || strlen($password) < 8) {
+            $error = 'Usuario, correo valido y clave minima de 8 caracteres son obligatorios.';
         } elseif (admin_find_user($users, $username)) {
             $error = 'Ese usuario ya existe.';
+        } elseif (admin_find_user_by_email($users, $email)) {
+            $error = 'Ese correo ya esta registrado.';
         } else {
+            $token = bin2hex(random_bytes(24));
             $users[] = [
                 'username' => $username,
                 'name' => $name ?: $username,
+                'email' => $email,
+                'email_verified' => false,
+                'email_verified_at' => '',
+                'verification_token_hash' => hash('sha256', $token),
+                'verification_sent_at' => date('c'),
                 'role' => 'admin',
                 'active' => true,
                 'password_hash' => password_hash($password, PASSWORD_DEFAULT),
             ];
             save_admin_users($users);
-            header('Location: admin.php?ok=usuario');
+            $newUser = admin_find_user($users, $username);
+            $mailSent = $newUser ? admin_send_verification_email($site, $newUser, $token) : false;
+            header('Location: admin.php?ok=' . ($mailSent ? 'usuario_verificacion' : 'usuario_pendiente'));
             exit;
         }
     } elseif (($_POST['action'] ?? '') === 'toggle_user') {
@@ -223,6 +331,28 @@ if ($logged && $_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '')
             header('Location: admin.php?ok=usuario');
             exit;
         }
+    } elseif (($_POST['action'] ?? '') === 'resend_verification') {
+        $target = admin_clean_text($_POST['username'] ?? '', 60);
+        $token = bin2hex(random_bytes(24));
+        $mailSent = false;
+
+        foreach ($users as &$user) {
+            if (($user['username'] ?? '') !== $target) {
+                continue;
+            }
+
+            $user['email_verified'] = false;
+            $user['email_verified_at'] = '';
+            $user['verification_token_hash'] = hash('sha256', $token);
+            $user['verification_sent_at'] = date('c');
+            $mailSent = admin_send_verification_email($site, $user, $token);
+            break;
+        }
+        unset($user);
+
+        save_admin_users($users);
+        header('Location: admin.php?ok=' . ($mailSent ? 'verificacion_reenviada' : 'usuario_pendiente'));
+        exit;
     }
 }
 
@@ -231,6 +361,9 @@ if (isset($_GET['ok'])) {
         'estado' => 'Estado de reserva actualizado.',
         'contenido' => 'Contenido de la web actualizado.',
         'usuario' => 'Usuarios actualizados.',
+        'usuario_verificacion' => 'Usuario creado y correo de verificacion enviado.',
+        'usuario_pendiente' => 'Usuario creado o actualizado, pero el correo no pudo enviarse. Revisa la configuracion de correo del servidor.',
+        'verificacion_reenviada' => 'Se reenvio el correo de verificacion.',
     ];
     $success = $messages[$_GET['ok']] ?? '';
 }
@@ -250,6 +383,8 @@ $csrf = admin_csrf_token();
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="theme-color" content="#8f151b">
     <title>Panel administrador | <?= h($site['name']) ?></title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -262,7 +397,7 @@ $csrf = admin_csrf_token();
             <section class="login-card">
                 <img src="assets/img/logo-don-felix-vino-profesional.png" alt="Logo Don Felix">
                 <h1>Panel administrador</h1>
-                <p>Ingresa con un usuario autorizado. La clave se guarda cifrada.</p>
+                <p>Ingresa con un usuario autorizado. La clave se guarda cifrada y el correo debe estar verificado.</p>
                 <?php if ($error): ?><div class="alert error"><?= h($error) ?></div><?php endif; ?>
                 <form method="POST">
                     <input type="hidden" name="action" value="login">
@@ -445,6 +580,7 @@ $csrf = admin_csrf_token();
                         <span class="eyebrow">Seguridad</span>
                         <h2>Usuarios autorizados</h2>
                         <p>Las claves se guardan con hash seguro de PHP, no como texto visible.</p>
+                        <p>El correo de verificacion usa la funcion mail() de PHP. En localhost debes configurar SMTP o sendmail para que el mensaje llegue de verdad.</p>
                     </div>
 
                     <div class="admin-users-grid">
@@ -458,6 +594,9 @@ $csrf = admin_csrf_token();
                             <label>Nombre
                                 <input type="text" name="new_name" maxlength="80" placeholder="Nombre visible">
                             </label>
+                            <label>Correo
+                                <input type="email" name="new_email" required maxlength="160" placeholder="usuario@gmail.com" autocomplete="email">
+                            </label>
                             <label>Clave inicial
                                 <input type="password" name="new_password" required minlength="8" autocomplete="new-password">
                             </label>
@@ -468,7 +607,9 @@ $csrf = admin_csrf_token();
                             <article class="admin-user-card">
                                 <h3><?= h($user['name'] ?? $user['username'] ?? '') ?></h3>
                                 <p><strong>Usuario:</strong> <?= h($user['username'] ?? '') ?></p>
+                                <p><strong>Correo:</strong> <?= h($user['email'] ?? '') ?></p>
                                 <p><strong>Estado:</strong> <?= !empty($user['active']) ? 'Activo' : 'Inactivo' ?></p>
+                                <p><strong>Verificacion:</strong> <?= !empty($user['email_verified']) ? 'Correo confirmado' : 'Pendiente de confirmacion' ?></p>
                                 <form method="POST">
                                     <input type="hidden" name="csrf" value="<?= h($csrf) ?>">
                                     <input type="hidden" name="action" value="change_password">
@@ -484,6 +625,14 @@ $csrf = admin_csrf_token();
                                         <input type="hidden" name="action" value="toggle_user">
                                         <input type="hidden" name="username" value="<?= h($user['username'] ?? '') ?>">
                                         <button class="btn btn-ghost full" type="submit"><?= !empty($user['active']) ? 'Desactivar' : 'Activar' ?></button>
+                                    </form>
+                                <?php endif; ?>
+                                <?php if (empty($user['email_verified'])): ?>
+                                    <form method="POST">
+                                        <input type="hidden" name="csrf" value="<?= h($csrf) ?>">
+                                        <input type="hidden" name="action" value="resend_verification">
+                                        <input type="hidden" name="username" value="<?= h($user['username'] ?? '') ?>">
+                                        <button class="btn btn-outline dark full" type="submit">Reenviar verificacion</button>
                                     </form>
                                 <?php endif; ?>
                             </article>
