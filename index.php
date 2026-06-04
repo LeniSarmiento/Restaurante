@@ -136,11 +136,13 @@
                         <figure class="menu-image-card">
                             <img src="<?= h($item['image']) ?>" alt="<?= h($item['alt']) ?>">
                             <figcaption class="menu-overlay">
-                                <span class="tag"><?= h($item['tag']) ?></span>
-                                <h3><?= h($item['name']) ?></h3>
                                 <p><?= h($item['desc']) ?></p>
                             </figcaption>
                         </figure>
+                        <div class="menu-card-body">
+                            <span class="tag"><?= h($item['tag']) ?></span>
+                            <h3><?= h($item['name']) ?></h3>
+                        </div>
                         <div class="menu-card-footer">
                             <a href="#reservas">Reservar este plato</a>
                         </div>
