@@ -15,7 +15,7 @@ $fecha = trim($_POST['fecha'] ?? '');
 $hora = trim($_POST['hora'] ?? '');
 $mensaje = trim($_POST['mensaje'] ?? '');
 
-$serviciosPermitidos = array_map(fn($item) => $item['name'], $menuItems);
+$serviciosPermitidos = $reservationServices;
 $errors = [];
 
 if ($nombre === '' || mb_strlen($nombre) < 3) {

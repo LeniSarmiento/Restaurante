@@ -37,12 +37,12 @@ $highlights = [
 ];
 
 $menuItems = [
-    ['name' => 'Americano especial', 'desc' => 'Combinacion especial de la casa con porciones generosas, ideal para un almuerzo contundente.', 'tag' => 'Especialidad', 'image' => 'assets/img/carta-especiales/americano-especial.jpg', 'alt' => 'Plato Americano especial de Don Felix'],
-    ['name' => 'Doble arequipeno', 'desc' => 'Doble porcion de sabor arequipeno con variedad de guarniciones tradicionales para compartir o disfrutar a lo grande.', 'tag' => 'Arequipeno', 'image' => 'assets/img/carta-especiales/doble-arequipeno.jpg', 'alt' => 'Plato Doble arequipeno de Don Felix'],
-    ['name' => 'Triple arequipeno', 'desc' => 'Seleccion abundante de tres preparaciones al estilo picanteria, servida con acompanamientos tradicionales.', 'tag' => 'Arequipeno', 'image' => 'assets/img/carta-especiales/triple-arequipeno.jpg', 'alt' => 'Plato Triple arequipeno de Don Felix'],
-    ['name' => 'Super americano', 'desc' => 'Version completa del americano, con mayor variedad en el plato y presentacion tipica de la casa.', 'tag' => 'Favorito', 'image' => 'assets/img/carta-especiales/super-americano.jpg', 'alt' => 'Plato Super americano de Don Felix'],
-    ['name' => 'Locro de pecho', 'desc' => 'Guiso tradicional arequipeno de pecho de res, cocido lentamente con zapallo, papa, hierbas y ajies para lograr un sabor profundo y casero.', 'tag' => 'Tradicion', 'image' => 'assets/img/carta-especiales/locro-de-pecho.jpg', 'alt' => 'Plato Locro de pecho de Don Felix'],
-    ['name' => 'Estofado de res', 'desc' => 'Preparado con insumos del local y concho hecho en casa, logrando un estofado de sabor intenso, textura casera y sazon tradicional.', 'tag' => 'De la casa', 'image' => 'assets/img/carta-especiales/estofado-de-res.jpg', 'alt' => 'Plato Estofado de res de Don Felix'],
+    ['name' => 'Americano especial', 'desc' => 'Combinacion especial de la casa con porciones generosas, ideal para un almuerzo contundente.', 'price' => '45.00', 'tag' => 'Especialidad', 'image' => 'assets/img/carta-especiales/americano-especial.jpg', 'alt' => 'Plato Americano especial de Don Felix'],
+    ['name' => 'Doble arequipeno', 'desc' => 'Doble porcion de sabor arequipeno con variedad de guarniciones tradicionales para compartir o disfrutar a lo grande.', 'price' => '55.00', 'tag' => 'Arequipeno', 'image' => 'assets/img/carta-especiales/doble-arequipeno.jpg', 'alt' => 'Plato Doble arequipeno de Don Felix'],
+    ['name' => 'Triple arequipeno', 'desc' => 'Seleccion abundante de tres preparaciones al estilo picanteria, servida con acompanamientos tradicionales.', 'price' => '65.00', 'tag' => 'Arequipeno', 'image' => 'assets/img/carta-especiales/triple-arequipeno.jpg', 'alt' => 'Plato Triple arequipeno de Don Felix'],
+    ['name' => 'Super americano', 'desc' => 'Version completa del americano, con mayor variedad en el plato y presentacion tipica de la casa.', 'price' => '50.00', 'tag' => 'Favorito', 'image' => 'assets/img/carta-especiales/super-americano.jpg', 'alt' => 'Plato Super americano de Don Felix'],
+    ['name' => 'Locro de pecho', 'desc' => 'Guiso tradicional arequipeno de pecho de res, cocido lentamente con zapallo, papa, hierbas y ajies para lograr un sabor profundo y casero.', 'price' => '35.00', 'tag' => 'Tradicion', 'image' => 'assets/img/carta-especiales/locro-de-pecho.jpg', 'alt' => 'Plato Locro de pecho de Don Felix'],
+    ['name' => 'Estofado de res', 'desc' => 'Preparado con insumos del local y concho hecho en casa, logrando un estofado de sabor intenso, textura casera y sazon tradicional.', 'price' => '38.00', 'tag' => 'De la casa', 'image' => 'assets/img/carta-especiales/estofado-de-res.jpg', 'alt' => 'Plato Estofado de res de Don Felix'],
 ];
 
 $reservationServices = [

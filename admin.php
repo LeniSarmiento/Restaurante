@@ -166,6 +166,7 @@ function admin_content_payload($site, $dishShowcase, $menuItems) {
     foreach ($content['menuItems'] as $index => &$item) {
         $posted = $postedMenu[$index] ?? [];
         $item['name'] = admin_clean_text($posted['name'] ?? $item['name'] ?? '', 90);
+        $item['price'] = admin_clean_text($posted['price'] ?? $item['price'] ?? '', 20);
         $item['tag'] = admin_clean_text($posted['tag'] ?? $item['tag'] ?? '', 40);
         $item['desc'] = admin_clean_text($posted['desc'] ?? $item['desc'] ?? '', 420);
         $item['alt'] = admin_clean_text($posted['alt'] ?? $item['alt'] ?? '', 150);
@@ -556,6 +557,9 @@ $csrf = admin_csrf_token();
                                 <img src="<?= h($item['image'] ?? '') ?>" alt="<?= h($item['alt'] ?? '') ?>">
                                 <label>Nombre
                                     <input type="text" name="menu[<?= $index ?>][name]" value="<?= h($item['name'] ?? '') ?>" maxlength="90">
+                                </label>
+                                <label>Precio (S/)
+                                    <input type="text" name="menu[<?= $index ?>][price]" value="<?= h($item['price'] ?? '') ?>" maxlength="20" placeholder="Ej. 45.00">
                                 </label>
                                 <label>Etiqueta
                                     <input type="text" name="menu[<?= $index ?>][tag]" value="<?= h($item['tag'] ?? '') ?>" maxlength="40">

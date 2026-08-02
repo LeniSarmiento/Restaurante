@@ -128,26 +128,37 @@
             <div class="section-title section-title-small reveal">
                 <span class="eyebrow">Platos destacados</span>
                 <h2>Opciones principales de la carta</h2>
+                <div style="margin-top: 1.5rem; max-width: 500px; margin-left: auto; margin-right: auto;">
+                    <input type="text" id="dish-search-input" placeholder="🔍 Buscar plato, descripción o categoría..." style="width: 100%; padding: 12px 20px; border-radius: 30px; border: 1px solid #ccc; font-family: inherit; font-size: 1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05);" onkeyup="filterDishes()">
+                </div>
             </div>
 
-            <div class="menu-grid menu-grid-featured">
+            <div class="menu-grid menu-grid-featured" id="dish-grid">
                 <?php foreach ($menuItems as $item): ?>
-                    <article class="menu-card reveal">
+                    <article class="menu-card reveal dish-item">
                         <figure class="menu-image-card">
                             <img src="<?= h($item['image']) ?>" alt="<?= h($item['alt']) ?>" loading="lazy">
                             <figcaption class="menu-overlay">
-                                <p><?= h($item['desc']) ?></p>
+                                <p class="dish-desc"><?= h($item['desc']) ?></p>
                             </figcaption>
                         </figure>
                         <div class="menu-card-body">
-                            <span class="tag"><?= h($item['tag']) ?></span>
-                            <h3><?= h($item['name']) ?></h3>
+                            <div style="display: flex; justify-content: space-between; align-items: start;">
+                                <span class="tag dish-tag"><?= h($item['tag']) ?></span>
+                                <?php if (!empty($item['price'])): ?>
+                                    <strong style="color: var(--color-primary); font-size: 1.1rem;">S/ <?= h($item['price']) ?></strong>
+                                <?php endif; ?>
+                            </div>
+                            <h3 class="dish-name"><?= h($item['name']) ?></h3>
                         </div>
                         <div class="menu-card-footer">
                             <a href="#reservas">Reservar este plato</a>
                         </div>
                     </article>
                 <?php endforeach; ?>
+                <div id="no-dish-found" style="display: none; grid-column: 1/-1; text-align: center; padding: 2rem; color: #666;">
+                    No se encontraron platos que coincidan con tu búsqueda.
+                </div>
             </div>
         </div>
     </section>

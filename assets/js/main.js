@@ -81,3 +81,30 @@ const revealObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.12 });
 
 revealElements.forEach((element) => revealObserver.observe(element));
+
+// ==========================================
+// FILTRADO INTERACTIVO DE PLATOS (Restaurante)
+// ==========================================
+function filterDishes() {
+    const query = document.getElementById('dish-search-input').value.toLowerCase();
+    const dishes = document.querySelectorAll('.dish-item');
+    let foundAny = false;
+
+    dishes.forEach(dish => {
+        const name = dish.querySelector('.dish-name').textContent.toLowerCase();
+        const desc = dish.querySelector('.dish-desc').textContent.toLowerCase();
+        const tag = dish.querySelector('.dish-tag').textContent.toLowerCase();
+
+        if (name.includes(query) || desc.includes(query) || tag.includes(query)) {
+            dish.style.display = 'flex';
+            foundAny = true;
+        } else {
+            dish.style.display = 'none';
+        }
+    });
+
+    const noFoundMessage = document.getElementById('no-dish-found');
+    if (noFoundMessage) {
+        noFoundMessage.style.display = foundAny ? 'none' : 'block';
+    }
+}
